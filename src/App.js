@@ -1,23 +1,93 @@
-import logo from './logo.svg';
-import './App.css';
+import Axios from 'axios'
+//import { response } from 'express'
+import { useState } from 'react'
 
 function App() {
+
+  const [employeeList, setemployeeList] = useState([]);
+
+  const getEmployees = () => {
+    Axios.get('http://194.59.165.141:3002/employees').then((response) => {
+      setemployeeList(response.data);
+    });
+  }
+
+
+
+
+
+
+
+  const [light, setlight] = useState([]);
+  const [count, setcount] = useState([]);
+
+  // const adddata = () => {       Axios.post('http://localhost:3001/create',      {     name: name,     id:  id,     role: role   }) .then(response => this.setState({ articleId: response.data.id }));     )
+
+  function createPost() { Axios.post("http://194.59.165.141:3002/create", { light: light, count: count}).then((response) => { setemployeeList(response.data) }); }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App container">
+      <h1>employee</h1>
+      <div className="information">
+        <form action="">
+          <div className="mb-3">
+
+            <label htmlFor="name" className="form-label">Name</label>
+            <input type="text" placeholder="input Name" className="form-control" onChange={(event) => {
+              setlight(event.target.value)
+            }}></input>
+          </div>
+          <div className="mb-3">
+
+            <label htmlFor="age" className="form-label">address</label>
+
+
+            <input type="text" placeholder="input Name" className="form-control" onChange={(event) => {
+              setcount(event.target.value)
+            }}></input>
+          </div>
+
+          <button className="btn btn-success" onClick={createPost}>ADD employee</button>
+        </form>
+      </div>
+      <hr></hr>
+      <div className="employees">
+        <button className="btn btn-primary" onClick={getEmployees}>SHOW employee</button>
+
+        {employeeList.map((val, key) => {
+          return (
+            <div className="employee card">
+
+              <div className="card-body text-left">
+                <p className="card-text">
+                  name:{val.light}
+                </p>
+                <p className="card-text">
+                 
+                </p>
+                <p className="card-text">
+                 
+                </p>
+                <p className="card-text">
+                 
+                </p>
+              </div>
+
+
+              <a href={val.name}> เพิ่มเติม</a>
+
+
+              <button className="btn btn-primary"> {val.name}</button>
+              <input type="file" />
+            </div>
+          )
+
+        })}
+
+
+      </div>
+
     </div>
   );
 }
