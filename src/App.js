@@ -7,7 +7,7 @@ function App() {
   const [employeeList, setemployeeList] = useState([]);
 
   const getEmployees = () => {
-    Axios.get('http://194.59.165.141:3002/employees').then((response) => {
+    Axios.get('https://jsonplaceholder.typicode.com/todos/1').then((response) => {
       setemployeeList(response.data);
     });
   }
@@ -61,7 +61,7 @@ function App() {
 
               <div className="card-body text-left">
                 <p className="card-text">
-                  name:{val.light}
+                  name:{val.title}
                 </p>
                 <p className="card-text">
                  
@@ -75,10 +75,10 @@ function App() {
               </div>
 
 
-              <a href={val.name}> เพิ่มเติม</a>
+              <a href={val.title}> เพิ่มเติม</a>
 
 
-              <button className="btn btn-primary"> {val.name}</button>
+              <button className="btn btn-primary"> {val.title}</button>
               <input type="file" />
             </div>
           )
